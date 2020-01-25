@@ -9,7 +9,12 @@ namespace PAB_NIEDZ_SOLT
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            bool loggedIn = false;
+
+            Console.WriteLine("PAB - projekt System rezerwacji szafek BASEN SPA SILOWNIA");
+            Console.WriteLine("Autorzy:");
+            Console.WriteLine("Niedzielski - 206074");
+            Console.WriteLine("Soltysiak - 206082");
             SqlConnection conn = new SqlConnection();
             conn.ConnectionString = "Server=localhost;Database=Silownia;User Id = sa; Password=dupA123456.";
             try
@@ -26,18 +31,25 @@ namespace PAB_NIEDZ_SOLT
                 Console.WriteLine("Connection cannot be established");
                 return;
             };
+            Console.WriteLine("Login: ");
+            string userLogin = Console.ReadLine();
+            Console.WriteLine("Haslo: ");
+            string userPwd = Console.ReadLine();
 
-            SqlCommand command = new SqlCommand("SELECT * FROM Areas", conn);
-
+            SqlCommand command = new SqlCommand("SELECT Passwd FROM UsersLogins WHERE Login='" + userLogin+"'", conn);
             SqlDataReader reader = command.ExecuteReader();
-            // while there is another record present
-            while (reader.Read())
+            if(reader.Read())
             {
-                // write the data on to the screen
-                Console.WriteLine(String.Format("{0} \t | {1} \t",
-                // call the objects from their index
-                reader[0], reader[1]));
+                if (reader[0].ToString() == userPwd)
+                    Console.WriteLine("Login ok!");
+                else
+                    Console.WriteLine("Wrong passwd");
             }
+            else
+            {
+                Console.WriteLine("wrong login");
+            }
+            reader.Close();
 
             //zamykanie polaczenia!
             conn.Close();
