@@ -12,9 +12,21 @@ namespace PAB_NIEDZ_SOLT
             Console.WriteLine("Hello World!");
             SqlConnection conn = new SqlConnection();
             conn.ConnectionString = "Server=localhost;Database=Silownia;User Id = sa; Password=dupA123456.";
-            conn.Open();
-            if (conn.State != ConnectionState.Open)
+            try
+            {
+                conn.Open();
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine("Connection cannot be established");
                 return;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Connection cannot be established");
+                return;
+            };
+
             SqlCommand command = new SqlCommand("SELECT * FROM Areas", conn);
 
             SqlDataReader reader = command.ExecuteReader();
