@@ -15,22 +15,21 @@ namespace PAB_NIEDZ_SOLT
             Console.WriteLine("Autorzy:");
             Console.WriteLine("Niedzielski - 206074");
             Console.WriteLine("Soltysiak - 206082");
+
+            //zestawianie polaczenia z baza dnaych
             SqlConnection conn = new SqlConnection();
             conn.ConnectionString = "Server=localhost;Database=Silownia;User Id = sa; Password=dupA123456.";
             try
             {
                 conn.Open();
             }
-            catch (SqlException e)
-            {
-                Console.WriteLine("Connection cannot be established");
-                return;
-            }
-            catch (Exception e)
+            catch(SqlException e)
             {
                 Console.WriteLine("Connection cannot be established");
                 return;
             };
+
+            //logowanie
             Console.WriteLine("Login: ");
             string userLogin = Console.ReadLine();
             Console.WriteLine("Haslo: ");
@@ -41,7 +40,11 @@ namespace PAB_NIEDZ_SOLT
             if(reader.Read())
             {
                 if (reader[0].ToString() == userPwd)
+                {
                     Console.WriteLine("Login ok!");
+                    loggedIn = true;
+
+                }
                 else
                     Console.WriteLine("Wrong passwd");
             }
@@ -50,6 +53,32 @@ namespace PAB_NIEDZ_SOLT
                 Console.WriteLine("wrong login");
             }
             reader.Close();
+            if(loggedIn)
+            {
+                SqlCommand command1 = new SqlCommand("SELECT UserId FROM UsersLogins WHERE Login='" + userLogin + "'");
+                reader = command1.ExecuteReader();
+                string uId = reader[0].ToString();
+                reader.Close();
+                SqlCommand command2 = new SqlCommand("SELECT * FROM UsersCreds WHERE UserId='" + uId + "'");
+                reader = command2.ExecuteReader();
+
+                //TODO: userclass
+            }
+
+            while(loggedIn)
+            {
+                Console.WriteLine(userLogin + "#: ");
+                string userCommand = Console.ReadLine();
+                switch(userCommand)
+                {
+                    case "0":
+                        loggedIn = false;
+                        break;
+                    default:
+                        Console.WriteLine("Wrong Command!");
+                        break;
+                }
+            }
 
             //zamykanie polaczenia!
             conn.Close();
