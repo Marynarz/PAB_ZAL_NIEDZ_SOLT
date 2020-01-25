@@ -13,6 +13,8 @@ namespace PAB_NIEDZ_SOLT
             SqlConnection conn = new SqlConnection();
             conn.ConnectionString = "Server=localhost;Database=Silownia;User Id = sa; Password=dupA123456.";
             conn.Open();
+            if (conn.State != ConnectionState.Open)
+                return;
             SqlCommand command = new SqlCommand("SELECT * FROM Areas", conn);
 
             SqlDataReader reader = command.ExecuteReader();
@@ -24,6 +26,9 @@ namespace PAB_NIEDZ_SOLT
                 // call the objects from their index
                 reader[0], reader[1]));
             }
+
+            //zamykanie polaczenia!
+            conn.Close();
         }
     }
 }
