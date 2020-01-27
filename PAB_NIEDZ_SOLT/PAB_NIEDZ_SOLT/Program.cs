@@ -70,7 +70,7 @@ namespace PAB_NIEDZ_SOLT
                 reader.Close();
                 SqlCommand command2 = new SqlCommand("SELECT * FROM UsersCreds WHERE UserId='" + uId + "'");
                 reader = command2.ExecuteReader();
-                Cli comLine = new Cli(new UserClass(reader[1].ToString(),reader[2].ToString(),reader[3]));
+                Cli comLine = new Cli(new UserClass(reader[0].ToString(),reader[1].ToString(),reader[2].ToString(),reader[3]),conn);
                 reader.Close();
 
                 //odpalanie lini komend

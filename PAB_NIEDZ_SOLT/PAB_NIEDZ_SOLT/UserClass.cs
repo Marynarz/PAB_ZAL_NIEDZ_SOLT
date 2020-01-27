@@ -6,8 +6,10 @@ namespace PAB_NIEDZ_SOLT
         private bool isAdmin;
         private string userName;
         private string userSurename;
-        public UserClass(string usName,string usSurnam,bool adm)
+        private string userId;
+        public UserClass(string usId, string usName,string usSurnam,bool adm)
         {
+            userId = usId;
             isAdmin = adm;
             userName = usName;
             userSurename = usSurnam;
@@ -19,6 +21,10 @@ namespace PAB_NIEDZ_SOLT
         public string getName()
         {
             return userName;
+        }
+        public string getUserId()
+        {
+            return userId;
         }
 
     }
