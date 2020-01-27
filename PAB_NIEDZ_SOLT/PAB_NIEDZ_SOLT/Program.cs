@@ -2,6 +2,7 @@
 using System.Data;
 using System.Data.SqlTypes;
 using System.Data.SqlClient;
+using UserClass;
 
 namespace PAB_NIEDZ_SOLT
 {
@@ -34,7 +35,7 @@ namespace PAB_NIEDZ_SOLT
                 return;
             };
 
-            //logowanie
+            //logowanie do systemu
             Console.WriteLine("Login: ");
             string userLogin = Console.ReadLine();
             Console.WriteLine("Haslo: ");
@@ -42,6 +43,7 @@ namespace PAB_NIEDZ_SOLT
 
             SqlCommand command = new SqlCommand("SELECT Passwd FROM UsersLogins WHERE Login='" + userLogin+"'", conn);
             SqlDataReader reader = command.ExecuteReader();
+            //logowanie wykonanie
             if(reader.Read())
             {
                 if (reader[0].ToString() == userPwd)
@@ -58,33 +60,22 @@ namespace PAB_NIEDZ_SOLT
                 Console.WriteLine("wrong login");
             }
             reader.Close();
+            
+            //jeśli udalo sie zalogowac to ustawiamy kilka zmiennych
             if(loggedIn)
             {
-                SqlCommand command1 = new SqlCommand("SELECT UserId FROM UsersLogins WHERE Login='" + userLogin + "'");
+                SqlCommand command1 = new SqlCommand("SELECT userId FROM UsersLogins WHERE Login='" + userLogin + "'");
                 reader = command1.ExecuteReader();
                 string uId = reader[0].ToString();
                 reader.Close();
                 SqlCommand command2 = new SqlCommand("SELECT * FROM UsersCreds WHERE UserId='" + uId + "'");
                 reader = command2.ExecuteReader();
+                Cli comLine = new Cli(new UserClass(reader[1].ToString(),reader[2].ToString(),reader[3]));
+                reader.Close();
 
-                //TODO: userclass
+                //odpalanie lini komend
+                comLine.commandLine();
             }
-
-            while(loggedIn)
-            {
-                Console.WriteLine(userLogin + "#: ");
-                string userCommand = Console.ReadLine();
-                switch(userCommand)
-                {
-                    case "0":
-                        loggedIn = false;
-                        break;
-                    default:
-                        Console.WriteLine("Wrong Command!");
-                        break;
-                }
-            }
-
             //zamykanie polaczenia!
             conn.Close();
         }

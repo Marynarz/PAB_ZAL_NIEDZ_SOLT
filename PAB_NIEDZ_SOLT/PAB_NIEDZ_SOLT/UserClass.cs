@@ -12,6 +12,14 @@ namespace PAB_NIEDZ_SOLT
             userName = usName;
             userSurename = usSurnam;
         }
+        public bool getAdminState()
+        {
+            return isAdmin;
+        }
+        public string getName()
+        {
+            return userName;
+        }
 
     }
 }
