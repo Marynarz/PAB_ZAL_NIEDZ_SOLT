@@ -1,4 +1,5 @@
 using System;
+using System.Data.SqlClient;
 namespace PAB_NIEDZ_SOLT
 {
     public class Cli
@@ -96,24 +97,24 @@ namespace PAB_NIEDZ_SOLT
             string endTime = Console.ReadLine();
 
             //dane do query
-            if(areaName = "basen")
+            if(areaName == "basen")
             {
                 areaName = "Basen";
                 lockNo = rnd.Next(1,500);
             }
-            else if(areaName = "silownia")
+            else if(areaName == "silownia")
             {
                 areaName = "Silownia";
                 lockNo = rnd.Next(501,650);
             }
-            else if(areaName = "spa")
+            else if(areaName == "spa")
             {
                 areaName = "SPA";
                 lockNo = rnd.Next(651,700);
             }
 
             //budowanie i wykoanie zapytania
-            string queryDb = "insert into Reservations (userId, Area, lockerNo, startDate, endDate) values (\""+userAct.getUserId+"\",\""+areaName+"\",\""+lockNo+"\",\""+date+"T"+startTime+":00\",\""+date+"T"+endTime+"\")";
+            string queryDb = "insert into Reservations (userId, Area, lockerNo, startDate, endDate) values (\""+userAct.getUserId()+"\",\""+areaName+"\",\""+lockNo+"\",\""+date+"T"+startTime+":00\",\""+date+"T"+endTime+"\")";
             SqlCommand command = new SqlCommand(queryDb,conn);
             SqlDataReader reader = command.ExecuteReader();
             reader.Close();
