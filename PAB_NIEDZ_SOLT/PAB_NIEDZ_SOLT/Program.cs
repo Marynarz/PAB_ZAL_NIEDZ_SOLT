@@ -11,14 +11,19 @@ namespace PAB_NIEDZ_SOLT
         {
             bool loggedIn = false;
 
+            //krotkie wprowadzenie co to jest.
             Console.WriteLine("PAB - projekt System rezerwacji szafek BASEN SPA SILOWNIA");
             Console.WriteLine("Autorzy:");
             Console.WriteLine("Niedzielski - 206074");
             Console.WriteLine("Soltysiak - 206082");
+            
+            //haslo do serwera sql
+            Console.WriteLine("Haslo bazy danych: ");
+            string dbPass = Console.ReadLine();
 
             //zestawianie polaczenia z baza dnaych
             SqlConnection conn = new SqlConnection();
-            conn.ConnectionString = "Server=localhost;Database=Silownia;User Id = sa; Password=dupA123456.";
+            conn.ConnectionString = "Server=localhost;Database=Silownia;User Id = sa; Password="+dbPass;
             try
             {
                 conn.Open();
