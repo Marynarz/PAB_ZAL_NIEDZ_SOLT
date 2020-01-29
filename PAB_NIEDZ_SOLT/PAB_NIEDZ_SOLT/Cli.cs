@@ -114,7 +114,7 @@ namespace PAB_NIEDZ_SOLT
             }
 
             //budowanie i wykoanie zapytania
-            string queryDb = "insert into Reservations (userId, Area, lockerNo, startDate, endDate) values (\""+userAct.getUserId()+"\",\""+areaName+"\",\""+lockNo+"\",\""+date+"T"+startTime+":00\",\""+date+"T"+endTime+"\")";
+            string queryDb = "insert into Silownia.dbo.Reservations (userId, Area, lockerNo, startDate, endDate) values ('"+userAct.getUserId()+"','"+areaName+"','"+lockNo+"','"+date+"T"+startTime+":00','"+date+"T"+endTime+":00')";
             SqlCommand command = new SqlCommand(queryDb,conn);
             SqlDataReader reader = command.ExecuteReader();
             reader.Close();

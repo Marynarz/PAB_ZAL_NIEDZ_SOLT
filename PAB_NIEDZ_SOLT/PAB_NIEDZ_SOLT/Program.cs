@@ -40,7 +40,7 @@ namespace PAB_NIEDZ_SOLT
             Console.WriteLine("Haslo: ");
             string userPwd = Console.ReadLine();
 
-            SqlCommand command = new SqlCommand("SELECT Passwd FROM UsersLogins WHERE Login='" + userLogin+"'", conn);
+            SqlCommand command = new SqlCommand("SELECT Passwd FROM Silownia.dbo.UsersLogins WHERE Login='" + userLogin+"'", conn);
             SqlDataReader reader = command.ExecuteReader();
             //logowanie wykonanie
             if(reader.Read())
@@ -63,13 +63,13 @@ namespace PAB_NIEDZ_SOLT
             //jeśli udalo sie zalogowac to ustawiamy kilka zmiennych
             if(loggedIn)
             {
-                SqlCommand command1 = new SqlCommand("SELECT userId FROM UsersLogins WHERE Login='" + userLogin + "'",conn);
+                SqlCommand command1 = new SqlCommand("SELECT userId FROM Silownia.dbo.UsersLogins WHERE Login='" + userLogin + "'",conn);
                 SqlDataReader reader1 = command1.ExecuteReader();
                 string uId = "";
                 if(reader1.Read())
                     uId = reader1[0].ToString();
                 reader1.Close();
-                SqlCommand command2 = new SqlCommand("SELECT * FROM UsersCreds WHERE UserId='" + uId + "'",conn);
+                SqlCommand command2 = new SqlCommand("SELECT * FROM Silownia.dbo.UsersCreds WHERE UserId='" + uId + "'",conn);
                 SqlDataReader reader2 = command2.ExecuteReader();
                 reader2.Read();
                 Cli comLine = new Cli(new UserClass(reader2[0].ToString(),reader2[1].ToString(),reader2[2].ToString(),(bool)reader2[4]),conn);
