@@ -72,7 +72,7 @@ namespace PAB_NIEDZ_SOLT
                 SqlCommand command2 = new SqlCommand("SELECT * FROM Silownia.dbo.UsersCreds WHERE UserId='" + uId + "'",conn);
                 SqlDataReader reader2 = command2.ExecuteReader();
                 reader2.Read();
-                Cli comLine = new Cli(new UserClass(reader2[0].ToString(),reader2[1].ToString(),reader2[2].ToString(),(bool)reader2[4]),conn);
+                Cli comLine = new Cli(new UserClass(reader2[0].ToString(),reader2[1].ToString(),reader2[2].ToString(),(bool)reader2[3]),conn);
                 reader2.Close();
 
                 //odpalanie lini komend
